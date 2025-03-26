@@ -13,6 +13,7 @@ const MyRouter = () => {
             <Route path='/profile' element={<Profile/>}/>
             <Route path='/register' element={<Register/>}/>
             <Route path='/login' element={<Login/>}/>
+            <Route path='*' element={<p>404 Not found</p>}/>
         </Routes>
     </>
     )

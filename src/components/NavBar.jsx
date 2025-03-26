@@ -4,7 +4,8 @@ import { AuthContext } from "../context/AuthContext"
 
 
 const NavBar = () => {
-    const [ isAuthenticated, setIsAuthenticated] = useContext(AuthContext)
+    const { isAuthenticated } = useContext(AuthContext)
+    console.log(isAuthenticated)
     return (
         <>
             <nav className="bg-gray-900 text-white shadow-md p-4 fixed w-full top-0 left-0 z-10">

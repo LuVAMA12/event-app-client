@@ -3,7 +3,6 @@ import './App.css'
 import { ServicesContext } from './context/ServicesContext.jsx'
 function App() {
  const [ services, setServices] = useContext(ServicesContext)
-  console.log(services)
   return (
     <>
     <h1 className="text-3xl font-bold  mt-16 mb-10">Hello this is my event App</h1>
