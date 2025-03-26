@@ -1,17 +1,29 @@
 import axios from 'axios'
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { useNavigate } from 'react-router'
+import { AuthContext } from '../context/AuthContext.jsx'
 
 const Login = () => {
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [isAthenticated, setIsAuthenticated] = useContext(AuthContext)
 
     console.log(password, email)
 
     const handleLogin = async (e) => {
         e.preventDefault()
-        const response = axios.post('http://localhost:8000/login',{email, password})
-        console.log(response)
+        try {
+            const response = await axios.post('http://localhost:8000/api/login',{email, password})
+        if(response.status === 200){
+            setIsAuthenticated(true)
+            alert('Login successfully')
+            navigate('/')
+        }
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     return (
