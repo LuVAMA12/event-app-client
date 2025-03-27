@@ -4,8 +4,7 @@ import { AuthContext } from "../context/AuthContext"
 
 
 const NavBar = () => {
-    const { isAuthenticated } = useContext(AuthContext)
-    console.log(isAuthenticated)
+    const { isAuthenticated, handleLogout } = useContext(AuthContext)
     return (
         <>
             <nav className="bg-gray-900 text-white shadow-md p-4 fixed w-full top-0 left-0 z-10">
@@ -21,7 +20,7 @@ const NavBar = () => {
                     ): 
                     (<>
                         <Link to='/profile' className="hover:text-blue-400 transition duration-300">Profile</Link>
-                        <Link to='/login'className="hover:text-blue-400 transition duration-300">Logout</Link>
+                        <Link onClick={handleLogout} className="hover:text-blue-400 transition duration-300">Logout</Link>
                     </>)
                     } 
                 </div>

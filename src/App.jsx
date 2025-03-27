@@ -1,16 +1,23 @@
 import { useContext } from 'react'
 import './App.css'
 import { ServicesContext } from './context/ServicesContext.jsx'
+
 function App() {
- const [ services, setServices] = useContext(ServicesContext)
+
+
+  const [ services, setServices] = useContext(ServicesContext)
+
+ 
+
   return (
     <>
     <h1 className="text-3xl font-bold  mt-16 mb-10">Hello this is my event App</h1>
-          
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10' >
       {services && services.map( service => {
         return (
-
-          <div className="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white border border-gray-200" key={service._id}>
+          
+          <div className="col-span-1 rounded-lg overflow-hidden shadow-lg bg-white border border-gray-200 " key={service._id}>
           <div className="p-4">
             <h2 className="text-xl font-semibold text-gray-800">{service.title}</h2>
             <p className="text-gray-600 mt-2">{service.description}</p>
@@ -28,10 +35,9 @@ function App() {
         </div>
         )
       })}
+      </div>  
     </>
   )
 }
 
 export default App
-
-
