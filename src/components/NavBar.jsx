@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext"
 
 
 const NavBar = () => {
+    // const navigate = useNavigate()
     const { isAuthenticated, handleLogout } = useContext(AuthContext)
     return (
         <>
@@ -20,7 +21,8 @@ const NavBar = () => {
                     ): 
                     (<>
                         <Link to='/profile' className="hover:text-blue-400 transition duration-300">Profile</Link>
-                        <Link onClick={handleLogout} className="hover:text-blue-400 transition duration-300">Logout</Link>
+                        <Link onClick={ handleLogout} className="hover:text-blue-400 transition duration-300 ">Logout </Link>
+                        <Link to='/addservice' className="hover:text-blue-400 transition duration-300">New Service</Link>
                     </>)
                     } 
                 </div>

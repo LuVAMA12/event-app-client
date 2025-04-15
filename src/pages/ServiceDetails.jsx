@@ -1,24 +1,34 @@
-import { useContext } from 'react'
-import { Link } from "react-router"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router"
 
-import './App.css'
-import { ServicesContext } from './context/ServicesContext.jsx'
-function App() {
+const ServiceDetails = () => {
+    const {id} = useParams()
+    const [ service, setService ] = useState(null)
+    const [ loading, setLoading ] = useState(true)
 
+    const fetchServiceByID = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8000/api/service/${id}`)
+            if(response.status === 200) {
+                setService(response.data)
+            }
+        } catch (error) {
+            console.log(error)   
+        }
+        finally{
+            setLoading(false)
 
-  const [ services, setServices] = useContext(ServicesContext)
+        }
+    }
 
- 
-
-  return (
-    <>
-    <h1 className="text-3xl font-bold  mt-16 mb-10">Hello this is my event App</h1>
-
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10' >
-      {services && services.map( service => {
-        return (
-          <Link to={`/service/${service._id}`}  key={service._id}>
-          <div className="col-span-1 rounded-lg overflow-hidden shadow-lg bg-white border border-gray-200 ">
+    useEffect(()=> {
+        fetchServiceByID()
+    }, [])
+    return(
+        <>
+        {!loading&& service &&
+             <div className="col-span-1 rounded-lg overflow-hidden shadow-lg bg-white border border-gray-200 mt-16 mb-10">
           <div className="p-4">
             <h2 className="text-xl font-semibold text-gray-800">{service.title}</h2>
             <p className="text-gray-600 mt-2">{service.description}</p>
@@ -34,12 +44,9 @@ function App() {
             {service.availability === false && <button className="px-6 py-2 rounded-lg text-white bg-gray-400 cursor-not-allowed" disabled> Réservé </button>}
           </div>
         </div>
-          </Link>
-        )
-      })}
-      </div>  
-    </>
-  )
+            }
+        </>
+    )
 }
 
-export default App
+export default ServiceDetails
