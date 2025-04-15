@@ -38,7 +38,7 @@ export const AuthController = ({children}) => {
         try {
             localStorage.removeItem('token')
             setIsAuthenticated(false)
-            navigate('/login')
+            navigate('/login',{replace:true})
         } catch (error) {
             console.log(error)
         }
