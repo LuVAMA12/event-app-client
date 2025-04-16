@@ -11,12 +11,16 @@ export const AuthController = ({children}) => {
     
 
     useEffect(()=> {
-        let token =  localStorage.getItem('token')
-        console.log(token)
-        if(token) {
-            setTokenStorage(token)
-            setIsAuthenticated(true)
+        const token =  localStorage.getItem('token')
+        try {
+            if(token) {
+                setTokenStorage(token)
+                setIsAuthenticated(true)
+            }
+        } catch (error) {
+            console.log(error)
         }
+       
     }, [])
 
     const handleLogin = async (e, infoUser) => {
@@ -25,6 +29,7 @@ export const AuthController = ({children}) => {
             const response = await axios.post('http://localhost:8000/api/login',infoUser)
         if(response.status === 200){
             localStorage.setItem('token', response.data.token)
+            setTokenStorage(response.data.token)
             setIsAuthenticated(true)
             alert(response.data.message)
             navigate('/')

@@ -21,8 +21,9 @@ const NavBar = () => {
                     ): 
                     (<>
                         <Link to='/profile' className="hover:text-blue-400 transition duration-300">Profile</Link>
-                        <li onClick={handleLogout} className="hover:text-blue-400 transition duration-300 ">Logout </li>
+                        <Link to='/users' className="hover:text-blue-400 transition duration-300">Users</Link>
                         <Link to='/addservice' className="hover:text-blue-400 transition duration-300">New Service</Link>
+                        <li onClick={handleLogout} className="hover:text-blue-400 transition duration-300 ">Logout </li>
                     </>)
                     } 
                 </ul>

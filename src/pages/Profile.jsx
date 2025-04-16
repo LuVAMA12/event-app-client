@@ -1,12 +1,14 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { AuthContext } from '../context/AuthContext.jsx'
 
 function Profile() {
 
+  const { tokenStorage } = useContext(AuthContext)
   const [infoUser, setInfoUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-const token = localStorage.getItem('token')
+
 
 
   const fetchUserProfile = async () => {
@@ -14,7 +16,7 @@ const token = localStorage.getItem('token')
     try {
       const response = await axios.get('http://localhost:8000/api/profile', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${tokenStorage}`
         }
       })
 
@@ -29,10 +31,12 @@ const token = localStorage.getItem('token')
     }
    }
    useEffect(() => {
-     fetchUserProfile()
+    if(tokenStorage){
+
+      fetchUserProfile()
+    }
    }, []) 
 
-   console.log(infoUser)
   return (
     <>
     { !loading && infoUser &&
