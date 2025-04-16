@@ -8,18 +8,31 @@ const [firstName, setFirstName] = useState('')
 const [lastName, setLastName] = useState('')
 const [email, setEmail] = useState('')
 const [password, setPassword] = useState('')
+const [image, setImage] = useState(null)
 
-console.log(firstName,lastName,email,password)
 
 const handleRegistration = async (e) => {
     e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('first_name', firstName)
+    formData.append('last_name', lastName)
+    formData.append('email', email)
+    formData.append('password', password)
+    if(image){
+        formData.append('image', image)
+    }
+    console.log( formData)
     try {
-        const newUser = await axios.post(`http://localhost:8000/api/register/`, {first_name: firstName, last_name: lastName, email, password})
+        const newUser = await axios.post(`http://localhost:8000/api/register/`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         if(newUser.status === 201) {
             alert(newUser.data)
             navigate('/')
         }
-        console.log(newUser)
     } catch (error) {
         console.log(error)
         if(error){
@@ -79,6 +92,19 @@ const handleRegistration = async (e) => {
                         <div className="mt-2">
                             <input type="password" name="password" id="password" autoComplete="current-password" required className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             onChange={(e) => setPassword(e.target.value)}/>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="flex items-center justify-between">
+                            <label htmlFor="image" className="block text-sm/6 font-medium text-gray-900">Profile picture</label>
+                        </div>
+                        <div className="mt-2">
+                            <input type="file" 
+                            name="image" 
+                            id="image" 
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+                            onChange={(e) => setImage(e.target.files[0])}/>
                         </div>
                     </div>
 

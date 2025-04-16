@@ -13,16 +13,30 @@ const AddService = () => {
         category: '',
         address: '',
         availability: null,
-      
+        image: null
     })
+    
     const handleServiceSubmit = async ( e )=> {
-        e.preventDefault()
+      e.preventDefault()
+      
+      const formData = new FormData()
+      formData.append('title',serviceInfo.title)
+      formData.append('description',serviceInfo.description)
+      formData.append('price',serviceInfo.price)
+      formData.append('category',serviceInfo.category)
+      formData.append('address',serviceInfo.address)
+      formData.append('availability',serviceInfo.availability)
+      if(serviceInfo.image){  
+        formData.append('image',serviceInfo.image)
+      }
+      
+      console.log(console.log(formData))
         try {
-            const response = await axios.post(`http://localhost:8000/api/services`, serviceInfo, {
+            const response = await axios.post(`http://localhost:8000/api/services`, formData, {
                 headers:
                 {
-
-                    'Authorization': `Bearer ${tokenStorage}`
+                    'Authorization': `Bearer ${tokenStorage}`,
+                    'Content-Type': 'multipart/form-data'
                 }
             }        
         )
@@ -57,28 +71,33 @@ const AddService = () => {
 
 
     <div className="col-span-1">
-      <label className="block text-sm font-medium text-gray-700 mb-1" onChange={ e => setServiceInfo({...serviceInfo, category: e.target.value})} >Catégorie</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1"  >Catégorie</label>
       <input type="text" placeholder="Ex: Jardinage, Dépannage..." required
-        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onChange={ e => setServiceInfo({...serviceInfo, category: e.target.value})} />
     </div>
 
+    <div className="col-span-1">
+      <label className="block text-sm font-medium text-gray-700 mb-1" >Image</label>
+      <input type="file"
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onChange={ e => setServiceInfo({...serviceInfo, image: e.target.files[0]})}/>
+    </div>
 
     <div className="col-span-1 md:col-span-2">
-      <label className="block text-sm font-medium text-gray-700 mb-1" onChange={ e => setServiceInfo({...serviceInfo, address: e.target.value})} >Adresse</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1"  >Adresse</label>
       <input type="text" placeholder="Adresse complète" required
-        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onChange={ e => setServiceInfo({...serviceInfo, address: e.target.value})} />
     </div>
 
     <div className="col-span-1 md:col-span-2">
-      <label className="block text-sm font-medium text-gray-700 mb-1" onChange={ e => setServiceInfo({...serviceInfo, availability: e.target.value})} >Disponibilité</label>
-      <input type="text" required
-        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" />
+      <label className="block text-sm font-medium text-gray-700 mb-1" >Disponibilité</label>
+      <input type="text" 
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onChange={ e => setServiceInfo({...serviceInfo, availability: e.target.value})} />
     </div>
     
     <div className="col-span-1 md:col-span-2">
-      <label className="block text-sm font-medium text-gray-700 mb-1" onChange={ e => setServiceInfo({...serviceInfo, description: e.target.value})} >Description</label>
+      <label className="block text-sm font-medium text-gray-700 mb-1"  >Description</label>
       <textarea rows="5" placeholder="Décrivez votre service en détail" required
-        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition"></textarea>
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" onChange={ e => setServiceInfo({...serviceInfo, description: e.target.value})} ></textarea>
     </div>
 
 

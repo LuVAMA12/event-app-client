@@ -40,7 +40,7 @@ useEffect(() => {
           </thead>
           <tbody className="divide-y divide-gray-200">
             {!loading && users && users.map((user) => (
-              <tr key={user.id}>
+              <tr key={user._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <img
                     src={user.image ? `http://localhost:8000/${user.image}` : `https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_1280.png`}
