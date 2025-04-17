@@ -2,10 +2,12 @@ import axios from "axios"
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router"
 import { AuthContext } from "../context/AuthContext"
+import { ServicesContext } from "../context/ServicesContext"
 
 const AddService = () => {
     const navigate = useNavigate()
     const { tokenStorage} = useContext(AuthContext)
+    const { fetchServices } = useContext(ServicesContext)
     const [serviceInfo, setServiceInfo] = useState({
         title: '',
         description: '',
@@ -29,8 +31,7 @@ const AddService = () => {
       if(serviceInfo.image){  
         formData.append('image',serviceInfo.image)
       }
-      
-      console.log(console.log(formData))
+            
         try {
             const response = await axios.post(`http://localhost:8000/api/services`, formData, {
                 headers:
@@ -47,6 +48,9 @@ const AddService = () => {
         }
         } catch (error) {
             console.log(error)
+        }
+        finally {
+          fetchServices()
         }
     }
     return (

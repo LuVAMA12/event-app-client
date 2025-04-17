@@ -6,7 +6,7 @@ import { ServicesContext } from './context/ServicesContext.jsx'
 function App() {
 
 
-  const [ services, setServices] = useContext(ServicesContext)
+  const { services } = useContext(ServicesContext)
 
  
 

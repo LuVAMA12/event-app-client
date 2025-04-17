@@ -30,7 +30,7 @@ const [error, setError] = useState(null)
     fetchServices()
   },[])
 
-  return (<ServicesContext.Provider value={[services, setServices]}>
+  return (<ServicesContext.Provider value={{services, fetchServices}}>
     {!loading && children}
   </ServicesContext.Provider>)
 }

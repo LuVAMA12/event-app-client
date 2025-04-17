@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { Link, useParams } from "react-router"
 
 const ServiceDetails = () => {
     const {id} = useParams()
@@ -44,6 +44,11 @@ const ServiceDetails = () => {
                     <p className="text-gray-600 text-sm mb-2"><span className="font-semibold">Catégorie :</span> {service.category}</p>
                     <p className="text-gray-600 text-sm mb-2"><span className="font-semibold">Adresse :</span> {service.address}</p>
                     <p className="text-gray-600 text-sm mb-4"><span className="font-semibold">Prix :</span> {service.price} €</p>
+                    {service.userID &&
+                    <Link to={`/user/${service.userID._id}`}>
+                     <p className="text-gray-600 text-sm mb-4"><span className="font-semibold">Organisateur</span> {service.userID.first_name}</p>
+                    </Link>
+                    }
 
                     <p className="text-gray-700 text-base mb-6">{service.description}</p>
 
